@@ -1,0 +1,54 @@
+
+### 1\. The Correct Swap (First Code)
+
+This code uses a temporary variable (`temp`) to hold one value so it doesn't get lost.
+
+void swap(int* a , int* b) {
+     int temp;
+     // *a is 4, *b is 6
+     temp = *a;
+     // temp is now 4.
+     // *a is still 4, *b is still 6.
+   
+     *a = *b;
+     // *a (the value at a's address) is set to *b (6).
+     // *a is now 6.
+     // *b is still 6.
+     // temp is still 4.
+   
+     *b = temp;
+     // *b (the value at b's address) is set to temp (4).
+     // *b is now 4.
+     // *a is still 6.
+}
+
+**Result:** The value at `a`'s address becomes 6, and the value at `b`'s address becomes 4.
+**Output:** `The value of a is 6 and the value of b is 4`
+
+
+### 2\. The Incorrect Swap (Second Code)
+
+This code has a logical flaw. You copy `a`'s value into `b`, but you never copy `b`'s original value back into `a`.
+
+void swap(int* a , int* b) {
+     int temp;
+     // *a is 4, *b is 6
+     temp = *a;
+     // temp is now 4. (This holds the original value of a)
+     // *a is still 4, *b is still 6.
+
+     *b = *a;
+     // *b (the value at b's address) is set to *a (4).
+     // *b is now 4.
+     // *a is still 4.
+     // At this point, the original value of b (6) is lost!
+   
+     temp = *b;
+     // This is the error. You are setting temp to *b's NEW value (which is 4).
+     // temp becomes 4.
+     // This line does nothing to change the value of *a.
+}
+
+**Result:** The value at `a`'s address is never changed, so it stays 4. The value at `b`'s address is changed to 4.
+**Output:** `The value of a is 4 and the value of b is 4`
+
